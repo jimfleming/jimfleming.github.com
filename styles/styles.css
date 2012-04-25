@@ -1,0 +1,186 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+  background: #efefef;
+  background-color: #f3f3f3;
+  background-image: url('/images/stripes.jpg'), url('/images/grain.jpg');
+  background-repeat: repeat-x, repeat;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.4);
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  color: #000;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+small {
+  color: rgba(0, 0, 0, 0.4);
+}
+header, section, footer {
+  display: block;
+}
+header.main hgroup h1 {
+  font-family: 'Coustard', serif;
+  font-size: 60px;
+  text-align: center;
+  letter-spacing: 2px;
+  margin: 40px 0 0;
+  line-height: 65px;
+}
+header.main hgroup h1 .name {
+  color: #f20000;
+  font-size: 72px;
+}
+header.main hgroup h2 {
+  font-size: 36px;
+  color: #555;
+  font-weight: normal;
+  width: 726px;
+  margin: 0 auto 20px;
+  text-align: justify;
+}
+header.main hgroup h2 a.who {
+  color: #0062d2;
+}
+header.main hgroup h2 a.where {
+  color: #00ba22;
+}
+section.content {
+  overflow: hidden;
+}
+section.content ul#slideshow {
+  position: relative;
+  height: 440px;
+  margin: 0 auto;
+  width: 1122px;
+}
+section.content ul#slideshow > li {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+section.content ul#slideshow > li .image {
+  float: left;
+  position: relative;
+  width: 640px;
+  height: 300px;
+  top: 440px;
+  opacity: 0;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid rgba(155, 155, 155, 0.75);
+  border-radius: 3px;
+  -webkit-transition: top 1s ease,
+                            left 1s ease,
+                            width 1s ease,
+                            opacity 0.6s ease;
+  -moz-transition: top 1s ease,
+                         left 1s ease,
+                         width 1s ease,
+                         opacity 0.6s ease;
+}
+section.content ul#slideshow > li .description {
+  margin: 0 0 0 40px;
+  float: left;
+  font-size: 18px;
+  width: 440px;
+  opacity: 0;
+  -webkit-transition: opacity 0.4s ease;
+  -moz-transition: opacity 0.4s ease;
+}
+section.content ul#slideshow > li .description h4 {
+  font-family: 'Coustard', serif;
+  font-size: 24px;
+  margin: 20px 0;
+  text-align: center;
+}
+section.content ul#slideshow > li .description ul li {
+  margin: 0 0 10px;
+}
+section.content ul#slideshow > li .description ul li.last {
+  margin: 0;
+}
+section.content nav ul#slides {
+  overflow: hidden;
+  margin: 0 auto 30px;
+  width: 250px;
+}
+section.content nav ul#slides > li {
+  float: left;
+  margin: 0 10px 0 0;
+}
+section.content nav ul#slides > li.last {
+  margin: 0;
+}
+section.content nav ul#slides > li a {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: #aaa;
+  -webkit-transition: background 0.2s ease;
+  -moz-transition: background 0.2s ease;
+}
+section.content nav ul#slides > li a:hover, section.content nav ul#slides > li a.active {
+  background: #0062d2;
+}
+footer.contact {
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.05);
+  border-top: 1px solid rgba(155, 155, 155, 0.5);
+  border-bottom: 1px solid rgba(155, 155, 155, 0.5);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1);
+}
+footer.contact nav {
+  float: left;
+  width: 50%;
+  font-size: 18px;
+  color: #888;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.4);
+}
+footer.contact nav ul {
+  overflow: hidden;
+  text-align: center;
+}
+footer.contact nav ul li {
+  display: inline-block;
+  margin: 20px;
+}
+footer.contact nav ul li a {
+  font-weight: bold;
+  text-shadow: none;
+}
+footer.contact nav ul li a.blue {
+  color: #0062d2;
+}
+footer.contact nav ul li a.orange {
+  color: #ff9a2e;
+}
+footer.contact nav ul li a.red {
+  color: #f20000;
+}
+footer.contact nav ul li a.green {
+  color: #00ba22;
+}
+footer.contact address {
+  float: left;
+  width: 50%;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+  font-size: 18px;
+}
+footer.main {
+  padding: 20px;
+  text-align: center;
+  color: #aaa;
+  text-shadow: 0 1px #fff;
+}
