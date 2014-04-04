@@ -9,15 +9,11 @@
   window.maxCohesion = 0.2;
   window.maxJitter = 0.2;
 
-  window.maxFlocking = 0.8;
-
   function Flock(boids) {
     this.boids = boids;
   }
 
   Flock.prototype.update = function() {
-    this.maxFlockSize = this.boids.length * maxFlocking;
-
     var boid;
     for (var i = 0; i < this.boids.length; i++) {
       boid = this.boids[i];
@@ -91,10 +87,6 @@
       if (distance > distanceAlignment) {
         // Max distance
         continue;
-      }
-
-      if (count > this.maxFlockSize) {
-        break;
       }
 
       alignment.add(other.velocity.clone().normalize());

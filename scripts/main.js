@@ -5,9 +5,13 @@
   }
 
   var canvas = document.querySelector('canvas');
+
+  var dpr = window.devicePixelRatio || 1;
+  canvas.width = window.innerWidth / devicePixelRatio;
+  canvas.height = window.innerHeight / devicePixelRatio;
+
   var ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  ctx.scale(devicePixelRatio, devicePixelRatio);
 
   var els = document.querySelectorAll('.avoid');
 
