@@ -6,15 +6,19 @@
 
   var canvas = document.querySelector('canvas');
 
-  var dpr = window.devicePixelRatio || 1;
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  canvas.setAttribute('width', canvas.width / dpr);
-  canvas.setAttribute('height', canvas.height / dpr);
+  var devicePixelRatio = window.devicePixelRatio || 1;
 
   var ctx = canvas.getContext('2d');
-  ctx.scale(devicePixelRatio, devicePixelRatio);
+  var backingStoreRatio = ctx.backingStorePixelRatio || 1;
+  var ratio = devicePixelRatio / backingStoreRatio;
+
+  canvas.width = window.innerWidth * ratio;
+  canvas.height = window.innerHeight * ratio;
+
+  canvas.setAttribute('width', window.innerWidth);
+  canvas.setAttribute('height', window.innerHeight);
+
+  ctx.scale(ratio, ratio);
 
   var els = document.querySelectorAll('.avoid');
 
