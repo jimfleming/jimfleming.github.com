@@ -19,9 +19,9 @@ header {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -224px 0 0 -134px;
+  margin: -180px 0 0 -90px;
   text-align: center;
-  padding: 64px;
+  padding: 20px;
   line-height: 64px;
 }
 

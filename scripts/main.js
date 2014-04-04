@@ -4,19 +4,23 @@
     return Math.random() * (max - min) + min;
   }
 
+  var isWide = window.innerWidth > 768 || window.innerHeight > 768;
+
   var canvas = document.querySelector('canvas');
+  var ctx = canvas.getContext('2d');
 
   var devicePixelRatio = window.devicePixelRatio || 1;
-
-  var ctx = canvas.getContext('2d');
   var backingStoreRatio = ctx.backingStorePixelRatio || 1;
   var ratio = devicePixelRatio / backingStoreRatio;
 
-  canvas.width = window.innerWidth * ratio;
-  canvas.height = window.innerHeight * ratio;
+  var width = window.innerWidth;
+  var height = window.innerHeight;
 
-  canvas.setAttribute('width', window.innerWidth);
-  canvas.setAttribute('height', window.innerHeight);
+  canvas.width = width * ratio;
+  canvas.height = height * ratio;
+
+  canvas.style.width = width + 'px';
+  canvas.style.height = height + 'px';
 
   ctx.scale(ratio, ratio);
 
@@ -40,9 +44,9 @@
   var position, velocity;
   var particle;
 
-  var particleCount = window.innerWidth > 768 && window.innerHeight > 768 ? 256 : 128;
+  var particleCount = isWide ? 256 : 128;
   for (var i = 0; i < particleCount; i++) {
-    position = new Vector(randomRange(0, canvas.width), randomRange(0, canvas.height));
+    position = new Vector(randomRange(0, width), randomRange(0, height));
     velocity = new Vector(Math.cos(randomRange(0, 2 * Math.PI)), Math.sin(randomRange(0, 2 * Math.PI)));
     boids.push(new Particle(position, velocity));
   }
@@ -71,8 +75,8 @@
 
       if (boid.position.x < 0) boid.acceleration.add(new Vector(1, 0));
       if (boid.position.y < 0) boid.acceleration.add(new Vector(0, 1));
-      if (boid.position.x > canvas.width) boid.acceleration.add(new Vector(-1, 0));
-      if (boid.position.y > canvas.height) boid.acceleration.add(new Vector(0, -1));
+      if (boid.position.x > width) boid.acceleration.add(new Vector(-1, 0));
+      if (boid.position.y > height) boid.acceleration.add(new Vector(0, -1));
     }
   }
 

@@ -1,6 +1,6 @@
 (function() {
 
-  window.maxSpeed = 7.0;
+  window.maxSpeed = 6.0;
 
   function Particle(point, velocity, acceleration) {
     this.position = point || new Vector(0, 0);
