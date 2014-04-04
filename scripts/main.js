@@ -33,7 +33,8 @@
   var position, velocity;
   var particle;
 
-  for (var i = 0; i < 256; i++) {
+  var particleCount = window.innerWidth > 768 && window.innerHeight > 768 ? 256 : 128;
+  for (var i = 0; i < particleCount; i++) {
     position = new Vector(randomRange(0, canvas.width), randomRange(0, canvas.height));
     velocity = new Vector(Math.cos(randomRange(0, 2 * Math.PI)), Math.sin(randomRange(0, 2 * Math.PI)));
     boids.push(new Particle(position, velocity));
