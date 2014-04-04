@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+  background: white;
+  color: black;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+header {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -224px 0 0 -134px;
+  text-align: center;
+  padding: 64px;
+}
+
+h1, h2, h3 {
+  font-family: Oswald, Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 44px;
+  margin: 20px 0;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+a {
+  font-weight: normal;
+  color: black;
+}
