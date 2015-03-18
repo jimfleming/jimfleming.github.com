@@ -1,13 +1,26 @@
 (function() {
+  "use strict";
 
-  window.randomRange = function(min, max) {
+  function randomRange(min, max) {
     return Math.random() * (max - min) + min;
   }
 
+  var Vector = window.Vector;
+  // var Quad = window.Quad;
+  var Flock = window.Flock;
+  var Particle = window.Particle;
+
   var isWide = window.innerWidth > 768 || window.innerHeight > 768;
 
-  var canvas = document.querySelector('canvas');
-  var ctx = canvas.getContext('2d');
+  window.drawBoids = false;
+  window.maxDistance = 64;
+  window.pixelWidth = 0.5;
+  window.maxNeighbors = 6;
+  window.avoidWalls = true;
+  window.avoidance = 1.0;
+
+  var canvas = document.querySelector("canvas");
+  var ctx = canvas.getContext("2d");
 
   var devicePixelRatio = window.devicePixelRatio || 1;
   var backingStoreRatio = ctx.backingStorePixelRatio || 1;
@@ -19,12 +32,19 @@
   canvas.width = width * ratio;
   canvas.height = height * ratio;
 
-  canvas.style.width = width + 'px';
-  canvas.style.height = height + 'px';
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
 
   ctx.scale(ratio, ratio);
 
-  var els = document.querySelectorAll('.avoid');
+  var els = document.querySelectorAll(".avoid");
+
+  // var quads = new Quad(
+  //   new Vector(0, 0),
+  //   new Vector(width, height)
+  // );
+
+  // quads.subdivide(4);
 
   function contains(rect, v) {
     return v.x > rect.left && v.x < rect.right && v.y > rect.top && v.y < rect.bottom;
@@ -34,15 +54,8 @@
     return new Vector(rect.left + (rect.width / 2), rect.top + (rect.height / 2));
   }
 
-  window.drawBoids = false;
-
-  window.maxDistance = 64;
-  window.pixelWidth = 0.5;
-  window.maxNeighbors = 9;
-
   var boids = [];
   var position, velocity;
-  var particle;
 
   var particleCount = isWide ? 256 : 128;
   for (var i = 0; i < particleCount; i++) {
@@ -64,19 +77,45 @@
     var boid, rect;
     for (var i = 0; i < boids.length; i++) {
       boid = boids[i];
+
+      // quads.dirty(boid.position); // dirty previous position
       boid.update();
+      // quads.dirty(boid.position); // dirty new position
 
       for (var j = 0; j < rects.length; j++) {
         rect = rects[j];
         if (contains(rect, boid.position)) {
-          boid.acceleration.add(boid.position.clone().sub(getCenter(rect)).normalize());
+          boid.acceleration.add(boid.position.clone().sub(getCenter(rect)).normalize().multiplyScalar(avoidance));
         }
       }
 
-      if (boid.position.x < 0) boid.acceleration.add(new Vector(1, 0));
-      if (boid.position.y < 0) boid.acceleration.add(new Vector(0, 1));
-      if (boid.position.x > width) boid.acceleration.add(new Vector(-1, 0));
-      if (boid.position.y > height) boid.acceleration.add(new Vector(0, -1));
+      if (avoidWalls) {
+        if (boid.position.x < 0) {
+          boid.acceleration.add(new Vector(1, 0).multiplyScalar(avoidance));
+        }
+        if (boid.position.y < 0) {
+          boid.acceleration.add(new Vector(0, 1).multiplyScalar(avoidance));
+        }
+        if (boid.position.x > width) {
+          boid.acceleration.add(new Vector(-1, 0).multiplyScalar(avoidance));
+        }
+        if (boid.position.y > height) {
+          boid.acceleration.add(new Vector(0, -1).multiplyScalar(avoidance));
+        }
+      } else {
+        if (boid.position.x < 0) {
+          boid.position.x = width;
+        }
+        if (boid.position.y < 0) {
+          boid.position.y = height;
+        }
+        if (boid.position.x > width) {
+          boid.position.x = 0;
+        }
+        if (boid.position.y > height) {
+          boid.position.y = 0;
+        }
+      }
     }
   }
 
@@ -84,6 +123,12 @@
     var boidA, boidB;
     var distance, alpha;
     var neighbors;
+
+    if (drawBoids) {
+      ctx.strokeStyle = "black";
+    }
+    ctx.fillStyle = "black";
+    ctx.lineWidth = pixelWidth;
 
     for (var i = 0; i < boids.length; i++) {
       boidA = boids[i];
@@ -93,22 +138,20 @@
         var theta = boidA.velocity.heading() + (Math.PI / 2);
 
         ctx.save();
-        ctx.translate(boidA.position.x,boidA.position.y);
+        ctx.translate(boidA.position.x, boidA.position.y);
         ctx.rotate(theta);
         ctx.beginPath();
-        ctx.moveTo(0, -r*2);
-        ctx.lineTo(-r, r*2);
-        ctx.lineTo(r, r*2);
-        ctx.lineTo(0, -r*2);
-        ctx.strokeStyle = 'black';
-        ctx.lineWidth = pixelWidth;
+        ctx.moveTo(0, -r * 2);
+        ctx.lineTo(-r, r * 2);
+        ctx.lineTo(r, r * 2);
+        ctx.lineTo(0, -r * 2);
         ctx.stroke();
         ctx.restore();
       } else {
         neighbors = 0;
 
         for (var j = 0; j < boids.length; j++) {
-          if (i == j) {
+          if (i === j) {
             continue;
           }
 
@@ -120,12 +163,11 @@
           }
 
           alpha = 1 - (distance / maxDistance);
+          ctx.strokeStyle = "rgba(0, 0, 0, " + (alpha * 0.5) + ")";
 
           ctx.beginPath();
           ctx.moveTo(boidA.position.x, boidA.position.y);
           ctx.lineTo(boidB.position.x, boidB.position.y);
-          ctx.strokeStyle = 'rgba(0, 0, 0, ' + (alpha * 0.5) + ')';
-          ctx.lineWidth = pixelWidth;
           ctx.stroke();
 
           neighbors++;
@@ -138,7 +180,6 @@
         }
 
         if (neighbors > 0) {
-          ctx.fillStyle = 'black';
           ctx.fillRect(boidA.position.x - (pixelWidth * 0.5), boidA.position.y - (pixelWidth * 0.5), pixelWidth, pixelWidth);
         }
       }
@@ -147,14 +188,14 @@
 
   function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+    // quads.reset();
     update();
+    // quads.clear(ctx);
     draw();
 
-    // setTimeout(loop, 100);
     requestAnimationFrame(loop);
   }
 
   loop();
- 
-}).call(this);
+
+})();

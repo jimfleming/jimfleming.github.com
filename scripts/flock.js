@@ -1,4 +1,11 @@
 (function() {
+  "use strict";
+
+  function randomRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  var Vector = window.Vector;
 
   window.distanceSeparation = 64;
   window.distanceAlignment = 128;
@@ -22,13 +29,13 @@
       boid.acceleration.add(this.cohesion(boid));
       boid.acceleration.add(this.jitter());
     }
-  }
+  };
 
   Flock.prototype.jitter = function() {
     var x = Math.cos(randomRange(0, 2 * Math.PI));
     var y = Math.sin(randomRange(0, 2 * Math.PI));
     return new Vector(x, y).multiplyScalar(maxJitter);
-  }
+  };
 
   // cohesion - steer to move toward the average position (center of mass) of local flockmates
   Flock.prototype.cohesion = function(boid) {
@@ -40,7 +47,7 @@
     for (var i = 0; i < this.boids.length; i++) {
       other = this.boids[i];
 
-      if (boid == other) {
+      if (boid === other) {
         // Ignore self
         continue;
       }
@@ -49,10 +56,6 @@
       if (distance > distanceCohesion) {
         // Max distance
         continue;
-      }
-
-      if (count > this.maxFlockSize) {
-        break;
       }
 
       cohesion.add(other.position);
@@ -66,7 +69,7 @@
     }
 
     return cohesion.clamp(maxCohesion);
-  }
+  };
 
   // alignment - steer towards the average heading of local flockmates
   Flock.prototype.alignment = function(boid) {
@@ -78,7 +81,7 @@
     for (var i = 0; i < this.boids.length; i++) {
       other = this.boids[i];
 
-      if (boid == other) {
+      if (boid === other) {
         // Ignore self
         continue;
       }
@@ -99,7 +102,7 @@
     }
 
     return alignment.clamp(maxAlignment);
-  }
+  };
 
   // separation - steer to avoid crowding local flockmates
   Flock.prototype.separation = function(boid) {
@@ -122,10 +125,6 @@
         continue;
       }
 
-      if (count > this.maxFlockSize) {
-        break;
-      }
-
       var diff = Vector.sub(boid.position, other.position);
       // diff.add(other.velocity.clone().normalize());
       diff.multiplyScalar(1 / distance);
@@ -135,8 +134,8 @@
     }
 
     return separation.clamp(maxSeparation);
-  }
+  };
 
   window.Flock = Flock;
 
-}).call(this);
+})();
