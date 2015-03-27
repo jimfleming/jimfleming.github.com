@@ -10,14 +10,11 @@
   var Flock = window.Flock;
   var Particle = window.Particle;
 
-  var isWide = window.innerWidth > 768 || window.innerHeight > 768;
-
-  window.drawBoids = false;
-  window.maxDistance = 64;
-  window.pixelWidth = 0.75;
-  window.maxNeighbors = 6;
-  window.avoidWalls = true;
-  window.avoidance = 1.0;
+  var maxDistance = 72; // 64
+  var pixelWidth = 0.75; // 0.5
+  var maxNeighbors = 6;
+  var avoidWalls = true;
+  var avoidance = 1.0;
 
   var canvas = document.querySelector("canvas");
   var ctx = canvas.getContext("2d");
@@ -57,7 +54,7 @@
   var boids = [];
   var position, velocity;
 
-  var particleCount = isWide ? 256 : 128;
+  var particleCount = Math.sqrt(width * height) / 10;
   for (var i = 0; i < particleCount; i++) {
     position = new Vector(randomRange(0, width), randomRange(0, height));
     velocity = new Vector(Math.cos(randomRange(0, 2 * Math.PI)), Math.sin(randomRange(0, 2 * Math.PI)));
@@ -65,8 +62,16 @@
   }
 
   var rects = [];
+  var boundingRect;
   for (var i = 0; i < els.length; i++) {
-    rects.push(els[i].getBoundingClientRect());
+    boundingRect = els[i].getBoundingClientRect();
+    // cloning to avoid perf hit in bounding rect property access during draw
+    rects.push({
+      left: boundingRect.left,
+      right: boundingRect.right,
+      top: boundingRect.top,
+      bottom: boundingRect.bottom
+    });
   }
 
   var flock = new Flock(boids);
@@ -122,67 +127,71 @@
   function draw() {
     var boidA, boidB;
     var distance, alpha;
-    var neighbors;
 
-    if (drawBoids) {
-      ctx.strokeStyle = "rgb(60, 60, 60)";
-    }
+    ctx.strokeStyle = "rgb(60, 60, 60)";
     ctx.fillStyle = "rgb(60, 60, 60)";
     ctx.lineWidth = pixelWidth;
 
+    var strokes = {};
+
     for (var i = 0; i < boids.length; i++) {
       boidA = boids[i];
+      boidA.neighbors = 0;
 
-      if (drawBoids) {
-        var r = 2;
-        var theta = boidA.velocity.heading() + (Math.PI / 2);
-
-        ctx.save();
-        ctx.translate(boidA.position.x, boidA.position.y);
-        ctx.rotate(theta);
-        ctx.beginPath();
-        ctx.moveTo(0, -r * 2);
-        ctx.lineTo(-r, r * 2);
-        ctx.lineTo(r, r * 2);
-        ctx.lineTo(0, -r * 2);
-        ctx.stroke();
-        ctx.restore();
-      } else {
-        neighbors = 0;
-
-        for (var j = 0; j < boids.length; j++) {
-          if (i === j) {
-            continue;
-          }
-
-          boidB = boids[j];
-
-          distance = Vector.distance(boidA.position, boidB.position);
-          if (distance > maxDistance) {
-            continue;
-          }
-
-          alpha = 1 - (distance / maxDistance);
-          ctx.strokeStyle = "rgba(0, 0, 0, " + (alpha * 0.5) + ")";
-
-          ctx.beginPath();
-          ctx.moveTo(boidA.position.x, boidA.position.y);
-          ctx.lineTo(boidB.position.x, boidB.position.y);
-          ctx.stroke();
-
-          neighbors++;
-
-          // Only draw particles with < max neighbors
-          if (neighbors > maxNeighbors) {
-            neighbors = 0;
-            break;
-          }
+      for (var j = 0; j < boids.length; j++) {
+        if (i === j) {
+          continue;
         }
 
-        if (neighbors > 0) {
-          ctx.fillRect(boidA.position.x - (pixelWidth * 0.5), boidA.position.y - (pixelWidth * 0.5), pixelWidth, pixelWidth);
+        boidB = boids[j];
+
+        distance = Vector.distance(boidA.position, boidB.position);
+        if (distance > maxDistance) {
+          continue;
         }
+
+        alpha = 1 - (distance / maxDistance);
+
+        // batch strokes by their alpha value
+        alpha = alpha.toFixed(2);
+        if (!strokes[alpha]) {
+          strokes[alpha] = [];
+        }
+        strokes[alpha].push([boidA.position, boidB.position]);
+
+        // only draw particles with < max neighbors
+        if (boidA.neighbors >= maxNeighbors) {
+          break;
+        }
+
+        boidA.neighbors++;
       }
+
+      if (boidA.neighbors > 0) {
+        ctx.fillRect(
+          boidA.position.x - (pixelWidth * 0.5),
+          boidA.position.y - (pixelWidth * 0.5),
+          pixelWidth,
+          pixelWidth);
+      }
+    }
+
+    var alphaStrokes;
+    var line;
+    var alphas = Object.keys(strokes);
+    for (i = 0; i < alphas.length; i++) {
+      alpha = alphas[i];
+      alphaStrokes = strokes[alpha];
+
+      ctx.globalAlpha = alpha * 0.5;
+
+      ctx.beginPath();
+      for (j = 0; j < alphaStrokes.length; j++) {
+        line = alphaStrokes[j];
+        ctx.moveTo(line[0].x, line[0].y);
+        ctx.lineTo(line[1].x, line[1].y);
+      }
+      ctx.stroke();
     }
   }
 

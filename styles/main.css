@@ -28,6 +28,7 @@ header {
 h1, h2, h3 {
   font-family: Oswald, Helvetica, Arial, sans-serif;
   margin: 0;
+  font-weight: 300;
 }
 
 h1 {
@@ -43,6 +44,6 @@ h3 {
 }
 
 a {
-  font-weight: normal;
+  font-weight: 300;
   color: rgb(60, 60, 60);
 }
