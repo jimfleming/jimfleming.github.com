@@ -14,7 +14,7 @@
 
   window.drawBoids = false;
   window.maxDistance = 64;
-  window.pixelWidth = 0.5;
+  window.pixelWidth = 0.75;
   window.maxNeighbors = 6;
   window.avoidWalls = true;
   window.avoidance = 1.0;
@@ -125,9 +125,9 @@
     var neighbors;
 
     if (drawBoids) {
-      ctx.strokeStyle = "black";
+      ctx.strokeStyle = "rgb(60, 60, 60)";
     }
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "rgb(60, 60, 60)";
     ctx.lineWidth = pixelWidth;
 
     for (var i = 0; i < boids.length; i++) {
