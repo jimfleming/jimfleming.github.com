@@ -153,7 +153,7 @@
         alpha = 1 - (distance / maxDistance);
 
         // batch strokes by their alpha value
-        alpha = alpha.toFixed(2);
+        alpha = alpha.toFixed(1);
         if (!strokes[alpha]) {
           strokes[alpha] = [];
         }

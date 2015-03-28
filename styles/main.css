@@ -23,6 +23,11 @@ header {
   text-align: left;
   padding: 20px;
   line-height: 64px;
+  text-transform: lowercase;
+}
+
+header .small {
+  font-size: 40px;
 }
 
 h1, h2, h3 {
@@ -45,5 +50,10 @@ h3 {
 
 a {
   font-weight: 300;
-  color: rgb(60, 60, 60);
+  color: rgb(156, 156, 156);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
