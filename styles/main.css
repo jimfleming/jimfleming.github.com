@@ -57,6 +57,22 @@ a:hover {
   text-decoration: underline;
 }
 
+a.github:hover {
+  color: rgb(120, 201, 175);
+}
+
+a.email:hover {
+  color: rgb(153, 169, 211);
+}
+
+a.twitter:hover {
+  color: rgb(250, 155, 118);
+}
+
+a.linkedin:hover {
+  color: rgb(154, 171, 209);
+}
+
 @media (max-width: 640px) {
   header {
     /*text-align: center;*/
