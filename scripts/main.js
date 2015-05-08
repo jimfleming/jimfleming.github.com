@@ -11,7 +11,7 @@
   var Particle = window.Particle;
 
   var maxDistance = 72; // 64
-  var pixelWidth = 0.75; // 0.5
+  var pixelWidth = 2.0; // 0.5
   var maxNeighbors = 6;
   var avoidWalls = true;
   var avoidance = 1.0;
@@ -169,10 +169,10 @@
 
       if (boidA.neighbors > 0) {
         ctx.fillRect(
-          boidA.position.x - (pixelWidth * 0.5),
-          boidA.position.y - (pixelWidth * 0.5),
-          pixelWidth,
-          pixelWidth);
+          boidA.position.x - (pixelWidth * 1.0),
+          boidA.position.y - (pixelWidth * 1.0),
+          pixelWidth * 2.0,
+          pixelWidth * 2.0);
       }
     }
 
