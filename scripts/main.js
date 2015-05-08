@@ -183,7 +183,7 @@
       alpha = alphas[i];
       alphaStrokes = strokes[alpha];
 
-      ctx.globalAlpha = alpha * 0.5;
+      ctx.globalAlpha = alpha * 0.6;
 
       ctx.beginPath();
       for (j = 0; j < alphaStrokes.length; j++) {
