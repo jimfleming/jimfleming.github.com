@@ -13,7 +13,7 @@
   var maxDistance = 72; // 64
   var pixelWidth = 2.0; // 0.5
   var maxNeighbors = 6;
-  var avoidWalls = true;
+  var avoidWalls = false;
   var avoidance = 1.0;
 
   var canvas = document.querySelector("canvas");
@@ -131,6 +131,7 @@
     ctx.strokeStyle = "rgb(60, 60, 60)";
     ctx.fillStyle = "rgb(60, 60, 60)";
     ctx.lineWidth = pixelWidth;
+    ctx.globalAlpha = 1.0;
 
     var strokes = {};
 
