@@ -1,9 +1,6 @@
 (function() {
   "use strict";
 
-  window.Intercom('boot', { app_id: "g8unfepb" });
-  window.Intercom('update');
-
   function randomRange(min, max) {
     return Math.random() * (max - min) + min;
   }
