@@ -11,7 +11,7 @@
   window.distanceAlignment = 128;
   window.distanceCohesion = 128;
 
-  window.maxSeparation = 0.3;
+  window.maxSeparation = 0.2;
   window.maxAlignment = 0.01;
   window.maxCohesion = 0.2;
   window.maxJitter = 0.2;
