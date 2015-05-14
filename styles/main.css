@@ -7,7 +7,7 @@ body {
 }
 
 canvas {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -18,7 +18,7 @@ header {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -116px 0 0 -173px;
+  margin: -84px 0 0 -222px;
   text-align: left;
   padding: 20px;
   line-height: 64px;
@@ -29,48 +29,34 @@ header .small {
   font-size: 40px;
 }
 
-h1, h2, h3 {
+h1, h3 {
   font-family: Oswald, Helvetica, Arial, sans-serif;
   margin: 0;
   font-weight: 300;
 }
 
 h1 {
-  font-size: 32px;
-}
-
-h2 {
   font-size: 44px;
 }
 
 h3 {
   font-size: 24px;
-}
-
-a {
-  font-weight: 300;
   color: rgb(156, 156, 156);
-  text-decoration: none;
-  transition: color 0.1s ease-in-out;
 }
 
-a:hover {
-  text-decoration: underline;
-}
-
-a.github:hover {
+a.github {
   color: rgb(153, 169, 211);
 }
 
-a.email:hover {
+a.email {
   color: rgb(250, 155, 118);
 }
 
-a.twitter:hover {
+a.twitter {
   color: rgb(120, 201, 175);
 }
 
-a.linkedin:hover {
+a.linkedin {
   color: rgb(154, 171, 209);
 }
 
@@ -91,10 +77,6 @@ a.linkedin:hover {
   }
 
   h1 {
-    font-size: 28px;
-  }
-
-  h2 {
     font-size: 40px;
   }
 
