@@ -1,7 +1,7 @@
 (function() {
   "use strict";
 
-  window.maxSpeed = 6.0;
+  window.maxSpeed = 4.0;
 
   var Vector = window.Vector;
 
