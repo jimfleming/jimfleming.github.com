@@ -57,8 +57,7 @@
   var particleCount = Math.sqrt(width * height) / 10;
   for (var i = 0; i < particleCount; i++) {
     position = new Vector(randomRange(0, width), randomRange(0, height));
-    // velocity = new Vector(Math.cos(randomRange(0, 2 * Math.PI)), Math.sin(randomRange(0, 2 * Math.PI)));
-    velocity = new Vector(4.0, 0.0);
+    velocity = new Vector(Math.cos(randomRange(0, 2 * Math.PI)), Math.sin(randomRange(0, 2 * Math.PI)));
     boids.push(new Particle(position, velocity));
   }
 
