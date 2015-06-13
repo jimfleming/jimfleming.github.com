@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
   background: rgb(253, 254, 255);
   color: rgb(60, 60, 60);
 }
@@ -33,7 +33,6 @@ header {
 }
 
 h1, h2, h3 {
-  font-family: "Roboto-Condensed", Helvetica, Arial, sans-serif;
   margin: 0;
   font-weight: 300;
 }
