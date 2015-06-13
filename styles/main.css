@@ -14,23 +14,26 @@ canvas {
   bottom: 0;
 }
 
-header {
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -84px 0 0 -264px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+header {
   text-align: left;
   padding: 20px;
-  line-height: 64px;
   text-transform: lowercase;
+  line-height: 1.5;
 }
 
-header .small {
-  font-size: 40px;
-}
-
-h1, h3 {
-  font-family: Oswald, Helvetica, Arial, sans-serif;
+h1, h2, h3 {
+  font-family: "Roboto-Condensed", Helvetica, Arial, sans-serif;
   margin: 0;
   font-weight: 300;
 }
@@ -39,9 +42,14 @@ h1 {
   font-size: 44px;
 }
 
-h3 {
-  font-size: 24px;
+h2 {
+  font-size: 22px;
   color: rgb(156, 156, 156);
+}
+
+h3 {
+  margin-top: 1em;
+  font-size: 22px;
 }
 
 h3 a.github {
@@ -65,34 +73,21 @@ h3 a.linkedin {
 }
 
 @media (max-width: 640px) {
-  header {
-    /*text-align: center;*/
-    margin: -84px 0 0 -223px;
-    line-height: 48px;
-  }
-
-  header .small {
+  h1 {
     font-size: 36px;
   }
 
-  h1, h2, h3 {
-    font-family: Oswald, Helvetica, Arial, sans-serif;
-    margin: 0;
-    font-weight: 300;
-  }
-
-  h1 {
-    font-size: 40px;
+  h2 {
+    font-size: 18px;
   }
 
   h3 {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
 @media (max-width: 480px) {
   header {
-    margin: -164px 0 0 -97px;
     text-align: center;
   }
 
