@@ -2,11 +2,12 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
-  background: rgb(253, 254, 255);
-  color: rgb(60, 60, 60);
+  background: white;
+  color: rgb(72, 72, 72);
 }
 
 canvas {
+  opacity: 0.2;
   position: absolute;
   top: 0;
   left: 0;
@@ -28,7 +29,7 @@ canvas {
 header {
   text-align: left;
   padding: 20px;
-  text-transform: lowercase;
+  /*text-transform: lowercase;*/
   line-height: 1.5;
 }
 
@@ -43,32 +44,7 @@ h1 {
 
 h2 {
   font-size: 22px;
-  color: rgb(156, 156, 156);
-}
-
-h3 {
-  margin-top: 1em;
-  font-size: 22px;
-}
-
-h3 a.github {
-  color: rgb(153, 169, 211);
-}
-
-h3 a.blog {
-  color: rgb(250, 155, 118);
-}
-
-h3 a.twitter {
-  color: rgb(120, 201, 175);
-}
-
-h3 a.email {
-  color: rgb(230, 138, 195);
-}
-
-h3 a.linkedin {
-  color: rgb(154, 171, 209);
+  color: rgb(128, 128, 128);
 }
 
 @media (max-width: 640px) {
