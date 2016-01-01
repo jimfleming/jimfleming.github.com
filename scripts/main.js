@@ -59,12 +59,13 @@
     var opacity, distance;
     var line;
     var lineIndex = 0;
+    var i, j;
 
-    for (var i = 0; i < lines.length; i++) {
+    for (i = 0; i < lines.length; i++) {
       lines[i].noStroke();
     }
 
-    for (var i = 0; i < boids.length; i++) {
+    for (i = 0; i < boids.length; i++) {
       boidA = boids[i];
       boidA.neighbors = 0;
       boidA.update();
@@ -73,7 +74,7 @@
       boidRenderer = boidRenderers[i];
       boidRenderer.translation.set(boidA.position.x, boidA.position.y);
 
-      for (var j = 0; j < boids.length; j++) {
+      for (j = 0; j < boids.length; j++) {
         if (i === j) {
           continue;
         }
