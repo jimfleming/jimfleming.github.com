@@ -6,7 +6,6 @@
   }
 
   var Vector = window.Vector;
-  // var Quad = window.Quad;
   var Flock = window.Flock;
   var Particle = window.Particle;
 
@@ -14,7 +13,7 @@
   var pixelWidth = 2.0; // 0.5
   var maxNeighbors = 6;
   var avoidWalls = false;
-  var avoidance = 1.0;
+  var avoidance = 2.0;
 
   var canvas = document.querySelector("canvas");
   var ctx = canvas.getContext("2d");
@@ -23,7 +22,7 @@
   var backingStoreRatio = ctx.backingStorePixelRatio || 1;
   var ratio = devicePixelRatio / backingStoreRatio;
 
-  var width = window.innerWidth;
+  var width = window.innerWidth / 2;
   var height = window.innerHeight;
 
   canvas.width = width * ratio;
@@ -35,13 +34,6 @@
   ctx.scale(ratio, ratio);
 
   var els = document.querySelectorAll(".avoid");
-
-  // var quads = new Quad(
-  //   new Vector(0, 0),
-  //   new Vector(width, height)
-  // );
-
-  // quads.subdivide(4);
 
   function contains(rect, v) {
     return v.x > rect.left && v.x < rect.right && v.y > rect.top && v.y < rect.bottom;
@@ -83,9 +75,7 @@
     for (var i = 0; i < boids.length; i++) {
       boid = boids[i];
 
-      // quads.dirty(boid.position); // dirty previous position
       boid.update();
-      // quads.dirty(boid.position); // dirty new position
 
       for (var j = 0; j < rects.length; j++) {
         rect = rects[j];
@@ -124,12 +114,13 @@
     }
   }
 
+  var colors = ['#66cc70', '#73c6e5', '#e573b6', '#e5e073', '#e5ac73'];
+
   function draw() {
     var boidA, boidB;
     var distance, alpha;
 
     ctx.strokeStyle = "rgb(60, 60, 60)";
-    ctx.fillStyle = "rgb(60, 60, 60)";
     ctx.lineWidth = pixelWidth;
     ctx.globalAlpha = 1.0;
 
@@ -138,6 +129,8 @@
     for (var i = 0; i < boids.length; i++) {
       boidA = boids[i];
       boidA.neighbors = 0;
+
+      ctx.fillStyle = "rgb(60, 60, 60)";
 
       for (var j = 0; j < boids.length; j++) {
         if (i === j) {
@@ -169,6 +162,7 @@
       }
 
       if (boidA.neighbors > 0) {
+        ctx.fillStyle = colors[i % colors.length];
         ctx.fillRect(
           boidA.position.x - (pixelWidth * 1.0),
           boidA.position.y - (pixelWidth * 1.0),
@@ -184,7 +178,7 @@
       alpha = alphas[i];
       alphaStrokes = strokes[alpha];
 
-      ctx.globalAlpha = alpha * 0.6;
+      ctx.globalAlpha = alpha * 0.12;
 
       ctx.beginPath();
       for (j = 0; j < alphaStrokes.length; j++) {
@@ -198,9 +192,7 @@
 
   function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // quads.reset();
     update();
-    // quads.clear(ctx);
     draw();
 
     requestAnimationFrame(loop);

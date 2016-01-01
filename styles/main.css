@@ -7,28 +7,29 @@ body {
 }
 
 canvas {
-  opacity: 0.2;
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
+  right: 50%;
   bottom: 0;
 }
 
 .center {
+  background: #fafafa;
+  border-left: 1px solid #d6d6d6;
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
   right: 0;
   bottom: 0;
 }
 
 header {
   text-align: left;
-  padding: 20px;
+  padding: 20px 60px;
   /*text-transform: lowercase;*/
   line-height: 1.5;
 }
@@ -45,6 +46,26 @@ h1 {
 h2 {
   font-size: 22px;
   color: rgb(128, 128, 128);
+}
+
+.q0-4 {
+  color: #66cc70;
+  color: rgb(72, 72, 72);
+}
+
+.q1-4 {
+  color: #73c6e5;
+  color: rgb(72, 72, 72);
+}
+
+.q2-4 {
+  color: #e573b6;
+  color: rgb(72, 72, 72);
+}
+
+.q3-4 {
+  color: #e5ac73;
+  color: rgb(72, 72, 72);
 }
 
 @media (max-width: 640px) {
