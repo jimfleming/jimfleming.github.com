@@ -15,8 +15,14 @@
   var pixelWidth = 1.5;
   var maxNeighbors = 5;
 
-  var width = window.innerWidth / 2;
+  var minWidth = 640;
+
+  var width = window.innerWidth;
   var height = window.innerHeight;
+
+  if (width > minWidth) {
+    width / 2;
+  }
 
   var el = document.getElementById('draw');
   var params = {

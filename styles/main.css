@@ -69,6 +69,16 @@ h2 {
 }
 
 @media (max-width: 640px) {
+  #draw {
+    right: 0;
+    opacity: 0.4;
+  }
+
+  .center {
+    left: 0;
+    background: transparent;
+  }
+
   h1 {
     font-size: 36px;
   }
@@ -85,13 +95,5 @@ h2 {
 @media (max-width: 480px) {
   header {
     text-align: center;
-  }
-
-  header span {
-    display: none;
-  }
-
-  header a {
-    display: block;
   }
 }
