@@ -8,10 +8,12 @@
   var Vector = window.Vector;
   var Flock = window.Flock;
   var Particle = window.Particle;
+  var Centroid = window.Centroid;
 
-  var maxDistance = 72; // 64
-  var pixelWidth = 2.0; // 0.5
-  var maxNeighbors = 6;
+  var showCentroids = false;
+  var maxDistance = 72;
+  var pixelWidth = 1.5;
+  var maxNeighbors = 5;
 
   var width = window.innerWidth / 2;
   var height = window.innerHeight;
@@ -39,8 +41,10 @@
     velocity = new Vector(Math.cos(randomRange(0, 2 * Math.PI)), Math.sin(randomRange(0, 2 * Math.PI)));
 
     boid = new Particle(position, velocity);
-    boidRenderer = two.makeRectangle(position.x, position.y, pixelWidth * 2, pixelWidth * 2);
-    boidRenderer.fill = colors[i % colors.length];
+    boid.centroid = i % colors.length;
+
+    boidRenderer = two.makeRectangle(position.x, position.y, pixelWidth * 3, pixelWidth * 3);
+    boidRenderer.fill = colors[boid.centroid];
     boidRenderer.noStroke();
     boidGroup.add(boidRenderer);
 
@@ -48,7 +52,25 @@
     boidRenderers.push(boidRenderer);
   }
 
-  var flock = new Flock(boids /* , groups */);
+  var centroids = [];
+  var centroid;
+  if (showCentroids) {
+    var centroidRenderer;
+    var centroidGroup = two.makeGroup();
+  }
+  for (var i = 0; i < colors.length; i++) {
+    centroid = new Centroid(width, height);
+    centroids.push(centroid);
+
+    if (showCentroids) {
+      centroidRenderer = two.makeCircle(centroid.mean.x, centroid.mean.y, 10);
+      centroidRenderer.fill = colors[i];
+      centroidRenderer.noStroke();
+      centroidGroup.add(centroidRenderer);
+    }
+  }
+
+  var flock = new Flock(boids, centroids);
   var lines = [];
 
   two.bind('update', function(frameCount) {
@@ -60,6 +82,15 @@
     var line;
     var lineIndex = 0;
     var i, j;
+
+    if (showCentroids) {
+      var centroid, centroidRenderer;
+      for (i = 0; i < centroids.length; i++) {
+        centroidRenderer = centroidGroup.children[i];
+        centroid = centroids[i];
+        centroidRenderer.translation.set(centroid.mean.x, centroid.mean.y);
+      }
+    }
 
     for (i = 0; i < lines.length; i++) {
       lines[i].noStroke();
@@ -104,7 +135,7 @@
           line = two.makeLine(boidA.position.x, boidA.position.y, boidB.position.x, boidB.position.y);
           line.stroke = 'rgb(60, 60, 60)';
           line.opacity = opacity;
-          line.linewidth = pixelWidth / 2;
+          line.linewidth = pixelWidth;
           lineGroup.add(line);
           lines.push(line);
         }
@@ -114,7 +145,7 @@
       }
 
       if (boidA.neighbors > 0) {
-        boidRenderer.fill = colors[i % colors.length];
+        boidRenderer.fill = colors[boidA.centroid];
       } else {
         boidRenderer.noFill();
       }
