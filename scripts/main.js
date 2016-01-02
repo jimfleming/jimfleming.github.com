@@ -21,7 +21,7 @@
   var height = window.innerHeight;
 
   if (width > minWidth) {
-    width / 2;
+    width /= 2;
   }
 
   var el = document.getElementById('draw');
