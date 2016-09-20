@@ -5,44 +5,44 @@
     return Math.random() * (max - min) + min;
   }
 
-  var Vector = window.Vector;
-  var Flock = window.Flock;
-  var Particle = window.Particle;
-  var Centroid = window.Centroid;
+  let Vector = window.Vector;
+  let Flock = window.Flock;
+  let Particle = window.Particle;
+  let Centroid = window.Centroid;
 
-  var showCentroids = false;
-  var maxDistance = 72;
-  var pixelWidth = 1.5;
-  var maxNeighbors = 5;
+  let showCentroids = false;
+  let maxDistance = 72;
+  let pixelWidth = 1.5;
+  let maxNeighbors = 5;
 
-  var minWidth = 640;
+  let minWidth = 640;
 
-  var width = window.innerWidth;
-  var height = window.innerHeight;
+  let width = window.innerWidth;
+  let height = window.innerHeight;
 
   if (width > minWidth) {
     width /= 2;
   }
 
-  var el = document.getElementById('draw');
-  var params = {
+  let el = document.getElementById('draw');
+  let params = {
     width: width,
     height: height,
     type: Two.Types.canvas
   };
-  var two = new Two(params).appendTo(el);
-  var colors = ['#66cc70', '#73c6e5', '#e573b6', '#e5e073', '#e5ac73'];
+  let two = new Two(params).appendTo(el);
+  let colors = ['#66cc70', '#73c6e5', '#e573b6', '#e5e073', '#e5ac73'];
 
-  var boids = [];
-  var boidRenderers = [];
-  var position, velocity;
+  let boids = [];
+  let boidRenderers = [];
+  let position, velocity;
 
-  var particleCount = Math.floor(Math.sqrt(width * height) / 10);
-  var boid, boidRenderer;
-  var lineGroup = two.makeGroup();
-  var boidGroup = two.makeGroup();
+  let particleCount = Math.floor(Math.sqrt(width * height) / 10);
+  let boid, boidRenderer;
+  let lineGroup = two.makeGroup();
+  let boidGroup = two.makeGroup();
 
-  for (var i = 0; i < particleCount; i++) {
+  for (let i = 0; i < particleCount; i++) {
     position = new Vector(randomRange(0, width), randomRange(0, height));
     velocity = new Vector(Math.cos(randomRange(0, 2 * Math.PI)), Math.sin(randomRange(0, 2 * Math.PI)));
 
@@ -58,39 +58,50 @@
     boidRenderers.push(boidRenderer);
   }
 
-  var centroids = [];
-  var centroid;
-  if (showCentroids) {
-    var centroidRenderer;
-    var centroidGroup = two.makeGroup();
-  }
-  for (var i = 0; i < colors.length; i++) {
+  let centroids = [];
+  let centroid;
+  let centroidRenderer;
+
+  let centroidGroup = two.makeGroup();
+  centroidGroup.opacity = 0;
+
+  for (let i = 0; i < colors.length; i++) {
     centroid = new Centroid(width, height);
     centroids.push(centroid);
 
-    if (showCentroids) {
-      centroidRenderer = two.makeCircle(centroid.mean.x, centroid.mean.y, 10);
-      centroidRenderer.fill = colors[i];
-      centroidRenderer.noStroke();
-      centroidGroup.add(centroidRenderer);
-    }
+    centroidRenderer = two.makeCircle(centroid.mean.x, centroid.mean.y, 10);
+    centroidRenderer.fill = colors[i];
+    centroidRenderer.noStroke();
+    centroidGroup.add(centroidRenderer);
   }
 
-  var flock = new Flock(boids, centroids);
-  var lines = [];
+  let toggle = document.getElementById('toggle-centroids');
+  toggle.addEventListener('click', function(e) {
+    e.preventDefault();
+    showCentroids = !showCentroids;
+
+    if (showCentroids) {
+      centroidGroup.opacity = 1;
+    } else {
+      centroidGroup.opacity = 0;
+    }
+  });
+
+  let flock = new Flock(boids, centroids);
+  let lines = [];
 
   two.bind('update', function(frameCount) {
     flock.update();
 
-    var boidA, boidB;
-    var boidRenderer;
-    var opacity, distance;
-    var line;
-    var lineIndex = 0;
-    var i, j;
+    let boidA, boidB;
+    let boidRenderer;
+    let opacity, distance;
+    let line;
+    let lineIndex = 0;
+    let i, j;
 
     if (showCentroids) {
-      var centroid, centroidRenderer;
+      let centroid, centroidRenderer;
       for (i = 0; i < centroids.length; i++) {
         centroidRenderer = centroidGroup.children[i];
         centroid = centroids[i];
