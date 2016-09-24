@@ -1,0 +1,68 @@
+==================================================================
+https://keybase.io/jimfleming
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://jimfleming.me
+  * I am jimfleming (https://keybase.io/jimfleming) on keybase.
+  * I have a public key with fingerprint A2C3 A14C 518F 9625 C898  5747 53FC 930D 4B45 E90F
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "01018d2cf6eb8bc23a4b451beac759558d070871aa72e42b10bc863f54e9792b3cdb0a",
+            "fingerprint": "a2c3a14c518f9625c898574753fc930d4b45e90f",
+            "host": "keybase.io",
+            "key_id": "53fc930d4b45e90f",
+            "kid": "01018d2cf6eb8bc23a4b451beac759558d070871aa72e42b10bc863f54e9792b3cdb0a",
+            "uid": "f70c8da9988a10d69554ff2219697f19",
+            "username": "jimfleming"
+        },
+        "service": {
+            "hostname": "jimfleming.me",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1474687634,
+    "expire_in": 157680000,
+    "prev": "451a4597906a24ffae77b01d4b9b402b224bfbaf7bba4a9dfb0a4f0d20c6c4a9",
+    "seqno": 16,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.56
+Comment: https://keybase.io/crypto
+
+yMIlAnicrZJrSBRRFMfXzMq1LTGjsheNhWKb3Zm581oqiizJMkiih1rLvTP3rpO6
+s+3OmiZCfagIEsyEKKM+WNhjCTSFILEHIkZGEohWRJBl9I4oQ7DHHalP9bH75XLP
+/Z/fOf/D6fLEu9xxLRe3netNu7s87t7t01HX9pef66s5bBlVnK+aKyXjFykzSMT2
+l5oG5+MAD3jVEHQqE6xiXRARxFDiMUG6ImmSpBpAAarCI6QIBAqYB1hXZZFKkGiK
+JmBRNzBAnJejZjBAwqGwGbQZFgm6iHioS7xKNVmQdFVTJQUqkkh1TQSGU4RogLLE
+EiviZLDmMIqQbNNiMfbwj7f3D/1/7js6jqMK0FUDaZqqIh4YMiNASgWB12RNobzm
+CCMkHETlhKn3mOW0jJQzx1yNl2PxClMnzmgdL39pstnby4XClm3pVhn7KrHtkM/J
+tKtCjnQfwf7fED82g4bD9XIVJBwxrSDn45lSt02HykMFyqoii9DLkcqQGSZ+01FI
+iqwCdpwypIIh2SgQlJhTICOBOUFEUTDg2Rw1DIGABQFiihFVMEYQaQZlw4AUGALQ
+ZZ0FOMfW3qDF2DLrEwUYM2IGgsiOhglXc+dW8URXnNs1KWGCs2Iud2Lyn8WrdU8e
+mz7U0J304krO4+L3Wx82/1z05kgA/uimxwdt4Os7tYvmu14/axzJ/f5onn9u69sd
+YizR7Oh8mpl2eD7K6EMfdhfHVs1aP+z5On9nWVPvodX73+9p9l2wQfJz4WPJk8ri
+hpG2oXBddeumhTH/xtHL7VOmudrtxwUz65oCvq7ZM4oeeHBcbRta3Bs79Q7WVZ5Y
+0zvSn9mQNaYV5a7Y1l//Kgsn9OTRwP38rOzKaFrKkoKDC1OXZlYMH+o52pH6eiAl
+YeqgeCP7UnTzgTOF60LN531zFqxsScqPpru/5J8duHm9NudY+aNc/tu0a2sblyVO
+zfPETm7xHM3IszYUdqZ/ujoa/wurKz12
+=hzdX
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/jimfleming
+
+==================================================================
