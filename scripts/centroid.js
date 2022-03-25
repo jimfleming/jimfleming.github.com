@@ -1,4 +1,4 @@
-(function() {
+(function () {
   "use strict";
 
   var Vector = window.Vector;
@@ -14,9 +14,12 @@
     this.observations = [];
   }
 
-  Centroid.prototype.update = function() {
+  Centroid.prototype.update = function () {
     if (this.observations.length === 0) {
-      this.mean = new Vector(randomRange(0, this.xMax), randomRange(0, this.yMax));
+      this.mean = new Vector(
+        randomRange(0, this.xMax),
+        randomRange(0, this.yMax)
+      );
       return;
     }
 
@@ -27,10 +30,9 @@
     this.mean = this.mean.divideScalar(this.observations.length);
   };
 
-  Centroid.prototype.clear = function() {
+  Centroid.prototype.clear = function () {
     this.observations.length = 0;
   };
 
   window.Centroid = Centroid;
-
 })();

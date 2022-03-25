@@ -1,4 +1,4 @@
-(function() {
+(function () {
   "use strict";
 
   function randomRange(min, max) {
@@ -24,14 +24,14 @@
     width /= 2;
   }
 
-  let el = document.getElementById('draw');
+  let el = document.getElementById("draw");
   let params = {
     width: width,
     height: height,
-    type: Two.Types.canvas
+    type: Two.Types.canvas,
   };
   let two = new Two(params).appendTo(el);
-  let colors = ['#66cc70', '#73c6e5', '#e573b6', '#e5e073', '#e5ac73'];
+  let colors = ["#66cc70", "#73c6e5", "#e573b6", "#e5e073", "#e5ac73"];
 
   let boids = [];
   let boidRenderers = [];
@@ -44,12 +44,20 @@
 
   for (let i = 0; i < particleCount; i++) {
     position = new Vector(randomRange(0, width), randomRange(0, height));
-    velocity = new Vector(Math.cos(randomRange(0, 2 * Math.PI)), Math.sin(randomRange(0, 2 * Math.PI)));
+    velocity = new Vector(
+      Math.cos(randomRange(0, 2 * Math.PI)),
+      Math.sin(randomRange(0, 2 * Math.PI))
+    );
 
     boid = new Particle(position, velocity);
     boid.centroid = i % colors.length;
 
-    boidRenderer = two.makeRectangle(position.x, position.y, pixelWidth * 3, pixelWidth * 3);
+    boidRenderer = two.makeRectangle(
+      position.x,
+      position.y,
+      pixelWidth * 3,
+      pixelWidth * 3
+    );
     boidRenderer.fill = colors[boid.centroid];
     boidRenderer.noStroke();
     boidGroup.add(boidRenderer);
@@ -75,8 +83,8 @@
     centroidGroup.add(centroidRenderer);
   }
 
-  let toggle = document.getElementById('toggle-centroids');
-  toggle.addEventListener('click', function(e) {
+  let toggle = document.getElementById("toggle-centroids");
+  toggle.addEventListener("click", function (e) {
     e.preventDefault();
     showCentroids = !showCentroids;
 
@@ -90,7 +98,7 @@
   let flock = new Flock(boids, centroids);
   let lines = [];
 
-  two.bind('update', function(frameCount) {
+  two.bind("update", function (frameCount) {
     flock.update();
 
     let boidA, boidB;
@@ -139,18 +147,23 @@
           continue;
         }
 
-        opacity = (1 - (distance / maxDistance)) * 0.12;
+        opacity = (1 - distance / maxDistance) * 0.12;
 
         if (lineIndex < lines.length) {
           line = lines[lineIndex];
           line.translation.set(0, 0);
           line.vertices[line.beginning].set(boidA.position.x, boidA.position.y);
           line.vertices[line.ending].set(boidB.position.x, boidB.position.y);
-          line.stroke = 'rgb(60, 60, 60)';
+          line.stroke = "rgb(60, 60, 60)";
           line.opacity = opacity;
         } else {
-          line = two.makeLine(boidA.position.x, boidA.position.y, boidB.position.x, boidB.position.y);
-          line.stroke = 'rgb(60, 60, 60)';
+          line = two.makeLine(
+            boidA.position.x,
+            boidA.position.y,
+            boidB.position.x,
+            boidB.position.y
+          );
+          line.stroke = "rgb(60, 60, 60)";
           line.opacity = opacity;
           line.linewidth = pixelWidth;
           lineGroup.add(line);
@@ -170,5 +183,4 @@
   });
 
   two.play();
-
 })();

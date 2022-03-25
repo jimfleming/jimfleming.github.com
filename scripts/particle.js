@@ -1,4 +1,4 @@
-(function() {
+(function () {
   "use strict";
 
   window.maxSpeed = 4.0;
@@ -20,7 +20,7 @@
     this.acceleration = acceleration || new Vector(0, 0);
   }
 
-  Particle.prototype.update = function() {
+  Particle.prototype.update = function () {
     this.velocity.add(this.acceleration);
     this.velocity.clamp(maxSpeed);
 
@@ -29,11 +29,10 @@
     this.acceleration.multiplyScalar(0);
   };
 
-  Particle.prototype.wrap = function(xMax, yMax) {
+  Particle.prototype.wrap = function (xMax, yMax) {
     this.position.x = wrap(this.position.x, 0, xMax);
     this.position.y = wrap(this.position.y, 0, yMax);
   };
 
   window.Particle = Particle;
-
 })();

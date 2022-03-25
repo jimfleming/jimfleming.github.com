@@ -1,4 +1,4 @@
-(function() {
+(function () {
   "use strict";
 
   function randomRange(min, max) {
@@ -35,7 +35,7 @@
     this.centroids = centroids;
   }
 
-  Flock.prototype.update = function() {
+  Flock.prototype.update = function () {
     var boidA, boidB;
     var distance;
     var i, j;
@@ -62,7 +62,8 @@
       this.centroids[boidA.centroid].observations.push(boidA.position);
 
       for (j = 0; j < this.boids.length; j++) {
-        if (i === j) { // ignore self
+        if (i === j) {
+          // ignore self
           continue;
         }
 
@@ -76,7 +77,11 @@
         }
 
         if (distance <= distanceSeparation) {
-          separation.add(Vector.sub(boidA.position, boidB.position).multiplyScalar(1 / distance));
+          separation.add(
+            Vector.sub(boidA.position, boidB.position).multiplyScalar(
+              1 / distance
+            )
+          );
         }
 
         // alignment - steer towards the average heading of local flockmates
@@ -86,12 +91,14 @@
         }
       }
 
-      if (cohesionCount > 0) { // average
+      if (cohesionCount > 0) {
+        // average
         cohesion.divideScalar(cohesionCount);
         cohesion.sub(boidA.position);
       }
 
-      if (alignmentCount > 0) { // average
+      if (alignmentCount > 0) {
+        // average
         alignment.divideScalar(alignmentCount);
       }
 
@@ -106,12 +113,11 @@
     }
   };
 
-  Flock.prototype.jitter = function() {
+  Flock.prototype.jitter = function () {
     var x = Math.cos(randomRange(0, 2 * Math.PI));
     var y = Math.sin(randomRange(0, 2 * Math.PI));
     return new Vector(x, y).multiplyScalar(maxJitter);
   };
 
   window.Flock = Flock;
-
 })();
